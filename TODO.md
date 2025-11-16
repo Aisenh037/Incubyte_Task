@@ -11,8 +11,8 @@
 - [x] Create comprehensive README.md with setup instructions and AI usage documentation
 
 ## Pending Tasks
-- [ ] Set up PostgreSQL database locally
-- [ ] Run Prisma migrations (npx prisma db push)
+- [ ] Set up MongoDB database (local or Atlas)
+- [ ] Run Prisma sync (npx prisma db push)
 - [ ] Write initial tests for backend auth routes (TDD)
 - [ ] Implement JWT middleware for protected routes
 - [ ] Add input validation and error handling
@@ -22,14 +22,14 @@
 - [ ] Write frontend tests with React Testing Library
 - [ ] Implement admin features (role-based access)
 - [ ] Add search and filter functionality in frontend
-- [ ] Deploy backend to Heroku
+- [ ] Deploy backend to a Node-friendly host
 - [ ] Deploy frontend to Vercel/Netlify
 - [ ] Add CI/CD pipeline
 - [ ] Performance optimization and security audits
 
 ## Next Steps
-1. Set up local PostgreSQL database
-2. Run `npx prisma db push` to create tables
+1. Set up MongoDB connection string in backend/.env
+2. Run `npx prisma db push` to create collections and indexes
 3. Write tests for auth endpoints
 4. Implement JWT middleware
 5. Start building frontend components

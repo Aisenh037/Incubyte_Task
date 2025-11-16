@@ -13,11 +13,29 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Search sweets (placed before :id to avoid route conflicts)
+router.get('/search/:query', async (req, res) => {
+  try {
+    const { query } = req.params;
+    const sweets = await prisma.sweet.findMany({
+      where: {
+        OR: [
+          { name: { contains: query, mode: 'insensitive' } },
+          { category: { contains: query, mode: 'insensitive' } },
+        ],
+      },
+    });
+    res.json(sweets);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to search sweets' });
+  }
+});
+
 // Get sweet by ID
 router.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    const sweet = await prisma.sweet.findUnique({ where: { id: parseInt(id) } });
+    const sweet = await prisma.sweet.findUnique({ where: { id } });
     if (!sweet) return res.status(404).json({ error: 'Sweet not found' });
     res.json(sweet);
   } catch (error) {
@@ -44,7 +62,7 @@ router.put('/:id', async (req, res) => {
     const { id } = req.params;
     const { name, description, price, category, stock } = req.body;
     const sweet = await prisma.sweet.update({
-      where: { id: parseInt(id) },
+      where: { id },
       data: { name, description, price, category, stock },
     });
     res.json(sweet);
@@ -57,28 +75,10 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    await prisma.sweet.delete({ where: { id: parseInt(id) } });
+    await prisma.sweet.delete({ where: { id } });
     res.status(204).send();
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete sweet' });
-  }
-});
-
-// Search sweets
-router.get('/search/:query', async (req, res) => {
-  try {
-    const { query } = req.params;
-    const sweets = await prisma.sweet.findMany({
-      where: {
-        OR: [
-          { name: { contains: query, mode: 'insensitive' } },
-          { category: { contains: query, mode: 'insensitive' } },
-        ],
-      },
-    });
-    res.json(sweets);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to search sweets' });
   }
 });
 

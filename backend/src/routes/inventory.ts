@@ -8,7 +8,7 @@ router.get('/:sweetId', async (req, res) => {
   try {
     const { sweetId } = req.params;
     const inventory = await prisma.inventory.findMany({
-      where: { sweetId: parseInt(sweetId) },
+      where: { sweetId },
       include: { sweet: true },
     });
     res.json(inventory);

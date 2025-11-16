@@ -31,17 +31,19 @@ model Sweet {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
+  inventory   Inventory[]
+
   @@map("sweets")
 }
 
 model Inventory {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  sweetId   String
+  sweetId   String   @db.ObjectId
   quantity  Int
   type      String   // purchase or restock
   date      DateTime @default(now())
 
-  sweet     Sweet    @relation(fields: [sweetId], references: [id], onDelete: Cascade)
+  sweet     Sweet    @relation(fields: [sweetId], references: [id])
 
   @@map("inventory")
 }

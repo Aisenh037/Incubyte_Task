@@ -16,7 +16,7 @@ A full-stack web application for managing a sweet shop, built with Node.js/TypeS
 - Node.js
 - TypeScript
 - Express.js
-- PostgreSQL
+- MongoDB
 - Prisma ORM
 - JWT Authentication
 - Jest for testing
@@ -30,7 +30,7 @@ A full-stack web application for managing a sweet shop, built with Node.js/TypeS
 
 ### Prerequisites
 - Node.js (v18+)
-- PostgreSQL
+- MongoDB (local or Atlas)
 - npm or yarn
 
 ### Backend Setup
@@ -44,16 +44,17 @@ A full-stack web application for managing a sweet shop, built with Node.js/TypeS
    npm install
    ```
 
-3. Set up the database:
-   - Create a PostgreSQL database named `sweet_shop_db`
-   - Update the `DATABASE_URL` in `backend/.env` with your database credentials
+3. Set up the database connection:
+   - Update the `DATABASE_URL` in `backend/.env` with your MongoDB connection string
+   - Example local: `mongodb://localhost:27017/sweet_shop_db`
+   - Example Atlas: `mongodb+srv://<user>:<pass>@<cluster>/<db>?retryWrites=true&w=majority`
 
 4. Generate Prisma client:
    ```bash
    npx prisma generate
    ```
 
-5. Run database migrations:
+5. Sync schema to MongoDB:
    ```bash
    npx prisma db push
    ```
